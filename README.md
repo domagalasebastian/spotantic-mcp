@@ -1,0 +1,1 @@
+# spotantic-mcp
