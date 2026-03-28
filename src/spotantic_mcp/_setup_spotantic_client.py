@@ -15,9 +15,16 @@ type AuthManager = AuthCodeFlowManager | AuthCodePKCEFlowManager | ClientCredent
 
 
 class AuthMethod(StrEnum):
+    """Enumeration of supported authentication methods for the Spotantic client."""
+
     CLIENT_CREDENTIALS = "client_credentials"
+    """Client Credentials Flow authentication method."""
+
     AUTH_CODE = "auth_code"
+    """Authorization Code Flow authentication method."""
+
     AUTH_CODE_PKCE = "auth_code_pkce"
+    """Authorization Code PKCE Flow authentication method."""
 
 
 class AuthManagerFactory:
@@ -32,11 +39,12 @@ class AuthManagerFactory:
         """Register an authentication manager class for a specific authentication method.
 
         Args:
-            auth_method (AuthMethod): The authentication method to register the manager for.
-            manager_creator (Callable[[AuthSettings, AccessTokenInfo], AuthManager]): A function that creates an instance of the authentication manager.
+            auth_method: The authentication method to register the manager for.
+            manager_creator: A function that creates an instance of the authentication manager.
 
         Raises:
-            ValueError: If the authentication method is already registered or if the manager class is not a subclass of AuthManager.
+            ValueError: If the authentication method is already registered or
+             if the manager class is not a subclass of AuthManager.
         """
         if auth_method in cls._REGISTRY:
             raise ValueError(
@@ -55,10 +63,11 @@ class AuthManagerFactory:
         """Decorator to register an authentication manager class for a specific authentication method.
 
         Args:
-            auth_method (AuthMethod): The authentication method to register the manager for.
+            auth_method: The authentication method to register the manager for.
 
         Returns:
-            A decorator function that registers the decorated authentication manager class for the specified authentication method.
+            A decorator function that registers the decorated authentication manager class for
+             the specified authentication method.
         """
 
         def decorator(
@@ -76,19 +85,21 @@ class AuthManagerFactory:
         """Create an authentication manager instance based on the specified authentication method.
 
         Args:
-            auth_method (AuthMethod): The authentication method to create the manager for.
-            auth_settings (AuthSettings): The authentication settings to use for creating the manager.
-            access_token_info (AccessTokenInfo): The access token information to use for creating the manager.
+            auth_method: The authentication method to create the manager for.
+            auth_settings: The authentication settings to use for creating the manager.
+            access_token_info: The access token information to use for creating the manager.
 
         Returns:
             An instance of AuthManager that is authenticated based on the specified authentication method.
 
         Raises:
-            ValueError: If the authentication method is not registered or if the created manager is not an instance of AuthManager.
+            ValueError: If the authentication method is not registered or
+             if the created manager is not an instance of AuthManager.
         """
         if auth_method not in cls._REGISTRY:
             raise ValueError(
-                f"Authentication method {auth_method} is not registered. Supported methods are: {list(cls._REGISTRY.keys())}"
+                f"Authentication method {auth_method} is not registered. "
+                f"Supported methods are: {list(cls._REGISTRY.keys())}"
             )
 
         manager_creator = cls._REGISTRY[auth_method]
@@ -124,7 +135,7 @@ def get_auth_settings() -> AuthSettings:
     """Read authentication settings from environment variables.
 
     Returns:
-        AuthSettings: The authentication settings for the Spotantic client.
+        The authentication settings for the Spotantic client.
     """
     client_id = os.getenv("SPOTANTIC_AUTH_CLIENT_ID")
     client_secret = os.getenv("SPOTANTIC_AUTH_CLIENT_SECRET")
@@ -142,7 +153,7 @@ def get_auth_method() -> AuthMethod:
     """Get the authentication method from environment variables.
 
     Returns:
-        AuthMethod: The authentication method to use for the Spotantic client.
+        The authentication method to use for the Spotantic client.
 
     Raises:
         ValueError: If the SPOTANTIC_MCP_AUTH_METHOD environment variable is not set or is invalid.
@@ -157,7 +168,8 @@ def get_auth_method() -> AuthMethod:
         auth_method = AuthMethod(auth_method_env.lower())
     except ValueError:
         raise ValueError(
-            f"Invalid authentication method: {auth_method_env}. Supported methods are: {[method.value for method in AuthMethod]}"
+            f"Invalid authentication method: {auth_method_env}. "
+            f"Supported methods are: {[method.value for method in AuthMethod]}"
         )
 
     return auth_method
@@ -167,7 +179,7 @@ def get_access_token_info() -> AccessTokenInfo:
     """Read access token information from environment variables.
 
     Returns:
-        AccessTokenInfo: The access token information for the Spotantic client.
+        The access token information for the Spotantic client.
     """
     refresh_token = os.getenv("SPOTANTIC_AUTH_REFRESH_TOKEN")
 
@@ -184,14 +196,15 @@ def get_access_token_info() -> AccessTokenInfo:
 async def create_client_credentials_manager(
     auth_settings: AuthSettings, access_token_info: AccessTokenInfo
 ) -> ClientCredentialsFlowManager:
-    """Create a Client Credentials Flow authentication manager based on the provided settings and access token information.
+    """Create a Client Credentials Flow authentication manager.
 
     Args:
-        auth_settings (AuthSettings): The authentication settings to use for creating the manager.
-        access_token_info (AccessTokenInfo): The access token information to use for creating the manager.
+        auth_settings: The authentication settings to use for creating the manager.
+        access_token_info: The access token information to use for creating the manager.
 
     Returns:
-        An instance of ClientCredentialsFlowManager that is authenticated based on the settings and access token information.
+        An instance of ClientCredentialsFlowManager that is authenticated based on
+        the settings and access token information.
 
     Raises:
         ValueError: If the client ID or client secret is not provided in the authentication settings.
@@ -212,17 +225,18 @@ async def create_client_credentials_manager(
 async def create_auth_code_manager(
     auth_settings: AuthSettings, access_token_info: AccessTokenInfo
 ) -> AuthCodeFlowManager:
-    """Create an Authorization Code Flow authentication manager based on the provided settings and access token information.
+    """Create an Authorization Code Flow authentication manager.
 
     Args:
-        auth_settings (AuthSettings): The authentication settings to use for creating the manager.
-        access_token_info (AccessTokenInfo): The access token information to use for creating the manager.
+        auth_settings: The authentication settings to use for creating the manager.
+        access_token_info: The access token information to use for creating the manager.
 
     Returns:
         An instance of AuthCodeFlowManager that is authenticated based on the settings and access token information.
 
     Raises:
-        ValueError: If the client ID or client secret is not provided in the authentication settings or if the access token information does not contain a refresh token.
+        ValueError: If the client ID or client secret is not provided in the authentication settings or
+         if the access token information does not contain a refresh token.
     """
     if auth_settings.client_id is None:
         raise ValueError("Client ID must be set for Authorization Code Flow")
@@ -245,17 +259,18 @@ async def create_auth_code_manager(
 async def create_auth_code_pkce_manager(
     auth_settings: AuthSettings, access_token_info: AccessTokenInfo
 ) -> AuthCodePKCEFlowManager:
-    """Create an Authorization Code PKCE Flow authentication manager based on the provided settings and access token information.
+    """Create an Authorization Code PKCE Flow authentication manager.
 
     Args:
-        auth_settings (AuthSettings): The authentication settings to use for creating the manager.
-        access_token_info (AccessTokenInfo): The access token information to use for creating the manager.
+        auth_settings: The authentication settings to use for creating the manager.
+        access_token_info: The access token information to use for creating the manager.
 
     Returns:
         An instance of AuthCodePKCEFlowManager that is authenticated based on the settings and access token information.
 
     Raises:
-        ValueError: If the client ID is not provided in the authentication settings or if the access token information does not contain a refresh token.
+        ValueError: If the client ID is not provided in the authentication settings or
+         if the access token information does not contain a refresh token.
     """
     if auth_settings.client_id is None:
         raise ValueError("Client ID must be set for Authorization Code PKCE Flow")

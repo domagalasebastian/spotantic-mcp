@@ -13,11 +13,21 @@ class AppContext:
     """Application context for the Spotantic MCP server."""
 
     client: SpotanticClient
+    """The initialized Spotantic client instance."""
 
 
 @asynccontextmanager
 async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
-    """Manage application lifecycle with type-safe context."""
+    """Manage application lifecycle with type-safe context.
+
+    This function initializes the Spotantic client and yields an application context.
+
+    Args:
+        server: The MCP server instance.
+
+    Yields:
+        An instance of AppContext containing the initialized Spotantic client.
+    """
 
     client = await setup_spotantic_client()
     yield AppContext(client=client)
