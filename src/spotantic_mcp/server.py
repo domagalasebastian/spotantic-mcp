@@ -20,13 +20,14 @@ async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
     """Manage application lifecycle with type-safe context."""
 
     client = await setup_spotantic_client()
-    try:
-        yield AppContext(client=client)
-    finally:
-        pass
+    yield AppContext(client=client)
 
 
-mcp = FastMCP("Spotantic MCP", lifespan=app_lifespan)
+def main() -> None:
+    """Entry point for the Spotantic MCP server."""
+    mcp = FastMCP("Spotantic MCP", lifespan=app_lifespan)
+    mcp.run()
+
 
 if __name__ == "__main__":
-    mcp.run()
+    main()

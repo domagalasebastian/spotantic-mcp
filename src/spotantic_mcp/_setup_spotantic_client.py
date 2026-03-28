@@ -145,11 +145,16 @@ def get_auth_method() -> AuthMethod:
         AuthMethod: The authentication method to use for the Spotantic client.
 
     Raises:
-        ValueError: If the authentication method specified in the environment variable is invalid.
+        ValueError: If the SPOTANTIC_MCP_AUTH_METHOD environment variable is not set or is invalid.
     """
     auth_method_env = os.getenv("SPOTANTIC_MCP_AUTH_METHOD")
+    if auth_method_env is None:
+        raise ValueError(
+            f"SPOTANTIC_MCP_AUTH_METHOD environment variable must be set. "
+            f"Supported methods are: {[method.value for method in AuthMethod]}"
+        )
     try:
-        auth_method = AuthMethod(auth_method_env)
+        auth_method = AuthMethod(auth_method_env.lower())
     except ValueError:
         raise ValueError(
             f"Invalid authentication method: {auth_method_env}. Supported methods are: {[method.value for method in AuthMethod]}"
@@ -167,6 +172,7 @@ def get_access_token_info() -> AccessTokenInfo:
     refresh_token = os.getenv("SPOTANTIC_AUTH_REFRESH_TOKEN")
 
     return AccessTokenInfo(
+        # Empty initial access token - will be populated on first authorization/refresh
         access_token=SecretStr(""),
         token_type="Bearer",
         expires_in=0,
