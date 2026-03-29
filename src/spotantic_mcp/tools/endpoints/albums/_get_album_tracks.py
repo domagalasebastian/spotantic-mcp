@@ -1,0 +1,48 @@
+from mcp.server.fastmcp import Context
+from mcp.server.session import ServerSession
+from spotantic.endpoints.albums import get_album_tracks
+
+from spotantic_mcp._app_context import AppContext
+from spotantic_mcp.tools.endpoints._handle_endpoint_errors import handle_spotantic_errors
+from spotantic_mcp.tools.endpoints._views import PagedResultView
+from spotantic_mcp.tools.endpoints._views import SimplifiedTrackView
+
+
+@handle_spotantic_errors
+async def get_album_tracks_tool(
+    ctx: Context[ServerSession, AppContext],
+    album_id: str,
+    limit: int = 10,
+    offset: int = 0,
+    market: str | None = None,
+) -> PagedResultView[SimplifiedTrackView]:
+    """Get Spotify catalog information about an album’s tracks.
+
+    Use pagination (limit/offset) to fetch tracks in smaller chunks to minimize response size.
+    For large albums, iterate through pages using offset += limit rather than fetching all at once.
+
+    Args:
+        ctx: The tool context, which includes the server session and application context.
+        album_id: The Spotify ID for the album (22 alphanumeric characters).
+        limit: The maximum number of items to return. Default: 10. Minimum: 1. Maximum: 50.
+          Use smaller values (10-20) to get faster responses and avoid large JSON payloads.
+        offset: The index of the first item to return. Default: 0 (the first item).
+          Increment this to paginate through results: offset=10, offset=20, offset=30, etc.
+        market: An ISO 3166-1 alpha-2 country code (2 letters, e.g. 'US', 'GB', 'PL').
+
+    Returns:
+        A paged result containing simplified track objects for the album's tracks.
+        Check the 'total' field to know how many items exist and paginate accordingly.
+    """
+    spotantic_client = ctx.request_context.lifespan_context.client
+    api_data = (
+        await get_album_tracks(
+            spotantic_client,
+            album_id=album_id,
+            limit=limit,
+            offset=offset,
+            market=market,
+        )
+    ).data
+
+    return PagedResultView[SimplifiedTrackView].model_validate(api_data)
