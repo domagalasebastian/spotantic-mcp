@@ -1,5 +1,5 @@
+from collections.abc import Callable
 from typing import Awaitable
-from typing import Callable
 
 from spotantic.models.auth import AccessTokenInfo
 from spotantic.models.auth import AuthSettings
