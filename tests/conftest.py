@@ -7,6 +7,7 @@ from spotantic.models.spotify import SavedAlbumModel
 from spotantic.models.spotify import SimplifiedAlbumModel
 from spotantic.models.spotify import SimplifiedArtistModel
 from spotantic.models.spotify import SimplifiedTrackModel
+from spotantic.models.spotify import TrackModel
 from spotantic.models.spotify.submodels import ExternalUrlsModel
 from spotantic.types import AlbumTypes
 
@@ -110,4 +111,13 @@ def example_saved_album_data(example_album_data):
     return SavedAlbumModel(
         added_at="2024-01-01T00:00:00Z",  # type: ignore
         album=example_album_data,
+    )
+
+
+@pytest.fixture
+def example_track_data(example_simplified_track_data, example_simplified_album_data):
+    return TrackModel(
+        **example_simplified_track_data.model_dump(exclude={"duration"}),
+        duration_ms=180000,  # type: ignore
+        album=example_simplified_album_data,
     )
