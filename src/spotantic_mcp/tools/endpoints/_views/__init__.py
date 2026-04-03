@@ -3,6 +3,7 @@ from ._saved_album_view import SavedAlbumView
 from ._simplified_album_view import SimplifiedAlbumView
 from ._simplified_artist_view import SimplifiedArtistView
 from ._simplified_track_view import SimplifiedTrackView
+from ._track_view import TrackView
 
 __all__ = [
     "PagedResultView",
@@ -10,4 +11,5 @@ __all__ = [
     "SimplifiedAlbumView",
     "SimplifiedArtistView",
     "SimplifiedTrackView",
+    "TrackView",
 ]
