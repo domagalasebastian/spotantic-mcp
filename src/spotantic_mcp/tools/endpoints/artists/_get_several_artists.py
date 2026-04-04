@@ -17,6 +17,7 @@ async def get_several_artists_tool(
     Args:
         ctx: The tool context, which includes the server session and application context.
         artist_ids: A list of Spotify IDs for the artists (22 alphanumeric characters each).
+          Maximum of 50 IDs per request.
 
     Returns:
         A list of SimplifiedArtistView objects containing information about the artists.
