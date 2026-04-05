@@ -25,7 +25,7 @@ async def check_user_saved_items_tool(
           The list may contain different resource types in a single request.
 
     Returns:
-        A dictionary mapping each item ID to a boolean indicating whether it is saved/followed.
+        A dictionary mapping each item URI to a boolean indicating whether it is saved/followed.
     """
     spotantic_client = ctx.request_context.lifespan_context.client
     return (await check_user_saved_items(spotantic_client, uris=uris)).data
