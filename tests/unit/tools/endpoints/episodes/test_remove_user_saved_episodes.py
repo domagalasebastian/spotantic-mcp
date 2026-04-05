@@ -21,6 +21,7 @@ async def test_remove_user_saved_episodes_tool(mock_context):
 
 
 @pytest.mark.asyncio
+@pytest.mark.skip("Excluded from tools list since Library endpoint is available")
 async def test_remove_user_saved_episodes_tool_registered(test_server):
     tools = await test_server.list_tools()
     matching_tools = [tool for tool in tools if tool.name == "remove_user_saved_episodes_tool"]

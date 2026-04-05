@@ -4,6 +4,7 @@ from spotantic_mcp.tools._tool_types import EndpointTool
 from .albums import album_endpoint_tools
 from .artists import artist_endpoint_tools
 from .episodes import episode_endpoint_tools
+from .library import library_endpoint_tools
 
 endpoint_tools = ToolGroup[EndpointTool](
     name="Spotify Endpoint Tools",
@@ -11,5 +12,6 @@ endpoint_tools = ToolGroup[EndpointTool](
         album_endpoint_tools,
         artist_endpoint_tools,
         episode_endpoint_tools,
+        library_endpoint_tools,
     ],
 )
