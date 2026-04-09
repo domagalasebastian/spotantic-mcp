@@ -1,5 +1,3 @@
-from collections.abc import Sequence
-
 from pydantic import Field
 
 from ._base_view import BaseView
@@ -17,5 +15,5 @@ class PagedResultView[ItemT: BaseView](BaseView):
     total: int = Field(description="The total number of items available to return.")
     """The total number of items available to return."""
 
-    items: Sequence[ItemT] = Field(description="An array of items collected from the current page.")
+    items: list[ItemT] = Field(description="An array of items collected from the current page.")
     """An array of items collected from the current page."""

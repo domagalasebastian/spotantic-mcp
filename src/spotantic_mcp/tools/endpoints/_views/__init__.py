@@ -1,5 +1,11 @@
+from ._currently_playing_item_view import CurrentlyPlayingItemView
+from ._device_view import DeviceView
 from ._episode_view import EpisodeView
+from ._get_user_queue_response_view import GetUserQueueResponseView
 from ._paged_result_view import PagedResultView
+from ._paged_result_with_cursors_view import PagedResultWithCursorsView
+from ._play_history_view import PlayHistoryView
+from ._playback_state_view import PlaybackStateView
 from ._saved_album_view import SavedAlbumView
 from ._saved_episode_view import SavedEpisodeView
 from ._simplified_album_view import SimplifiedAlbumView
@@ -10,8 +16,14 @@ from ._simplified_track_view import SimplifiedTrackView
 from ._track_view import TrackView
 
 __all__ = [
+    "CurrentlyPlayingItemView",
+    "DeviceView",
     "EpisodeView",
+    "GetUserQueueResponseView",
     "PagedResultView",
+    "PagedResultWithCursorsView",
+    "PlayHistoryView",
+    "PlaybackStateView",
     "SavedAlbumView",
     "SavedEpisodeView",
     "SimplifiedAlbumView",

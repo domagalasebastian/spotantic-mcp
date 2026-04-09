@@ -20,9 +20,8 @@ async def check_user_saved_items_tool(
     Args:
         ctx: The tool context, which includes the server session and application context.
         uris: A list of Spotify URIs. Each URI should be specified as 'spotify:<resource_type>:<id>'
-          where resource_type specify an item item e.g. track, album etc. Example:
-          (e.g. 'spotify:track:4aawyAB9zYYRM4BVTNc75l'). Maximum of 40 URIs per request.
-          The list may contain different resource types in a single request.
+          where resource_type specify an item e.g. track, album etc. Example: 'spotify:track:4aawyAB9zYYRM4BVTNc75l'.
+          Maximum of 40 URIs per request. The list may contain different resource types in a single request.
 
     Returns:
         A dictionary mapping each item URI to a boolean indicating whether it is saved/followed.

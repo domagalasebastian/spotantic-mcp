@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timedelta
+from typing import Literal
 
 from pydantic import Field
 from pydantic import field_validator
@@ -31,6 +32,9 @@ class SimplifiedEpisodeView(BaseView):
         None, repr=False, description="The user's most recent position in the episode."
     )
     """The user's most recent position in the episode"""
+
+    item_type: Literal["episode"] = Field(alias="type", repr=False, exclude=True, description="The item type.")
+    """The item type."""
 
     @field_validator("duration", mode="before")
     def convert_duration_ms_to_timedelta(cls, value: int | timedelta) -> timedelta:

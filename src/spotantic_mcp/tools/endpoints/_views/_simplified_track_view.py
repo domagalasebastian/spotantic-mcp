@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import timedelta
+from typing import Literal
 
 from pydantic import Field
 from pydantic import field_validator
@@ -25,6 +26,9 @@ class SimplifiedTrackView(BaseView):
 
     track_name: str = Field(alias="name", description="The name of the track.")
     """The name of the track."""
+
+    item_type: Literal["track"] = Field(alias="type", repr=False, exclude=True, description="The item type.")
+    """The item type."""
 
     track_uri: SpotifyTrackURI = Field(alias="uri", repr=False, description="The Spotify URI for the track.")
     """The Spotify URI for the track."""
