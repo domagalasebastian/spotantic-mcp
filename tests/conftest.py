@@ -1,9 +1,14 @@
+from datetime import datetime
 from unittest.mock import MagicMock
 
 import pytest
 from spotantic.models.spotify import AlbumModel
+from spotantic.models.spotify import CurrentlyPlayingItemModel
+from spotantic.models.spotify import DeviceModel
 from spotantic.models.spotify import EpisodeModel
 from spotantic.models.spotify import PagedResultModel
+from spotantic.models.spotify import PlaybackStateModel
+from spotantic.models.spotify import PlayHistoryModel
 from spotantic.models.spotify import SavedAlbumModel
 from spotantic.models.spotify import SavedEpisodeModel
 from spotantic.models.spotify import SimplifiedAlbumModel
@@ -13,6 +18,7 @@ from spotantic.models.spotify import SimplifiedShowModel
 from spotantic.models.spotify import SimplifiedTrackModel
 from spotantic.models.spotify import TrackModel
 from spotantic.models.spotify.submodels import ExternalUrlsModel
+from spotantic.models.spotify.submodels import PlaybackActionsModel
 from spotantic.types import AlbumTypes
 
 from spotantic_mcp.server import create_server
@@ -190,4 +196,53 @@ def example_saved_episode_data(example_episode_data):
     return SavedEpisodeModel(
         added_at="2024-01-01T00:00:00Z",  # type: ignore
         episode=example_episode_data,
+    )
+
+
+@pytest.fixture
+def example_device_data():
+    return DeviceModel(
+        id="device_id",
+        is_active=True,
+        is_private_session=False,
+        is_restricted=False,
+        name="device_name",
+        volume_percent=100,
+        supports_volume=True,
+        type="device_type",
+    )
+
+
+@pytest.fixture
+def example_currently_playing_item_data(example_track_data):
+    return CurrentlyPlayingItemModel(
+        context=None,
+        timestamp=datetime.now(),
+        progress_ms=10000,  # type: ignore
+        is_playing=True,
+        currently_playing_type="track",  # type: ignore
+        item=example_track_data,
+        actions=PlaybackActionsModel(),
+    )
+
+
+@pytest.fixture
+def example_playback_state_data(example_currently_playing_item_data, example_device_data, example_track_data):
+    return PlaybackStateModel(
+        **example_currently_playing_item_data.model_dump(exclude={"progress", "item"}),
+        item=example_track_data,
+        progress_ms=180000,  # type: ignore
+        device=example_device_data,
+        repeat_state="off",  # type: ignore
+        shuffle_state=False,
+        smart_shuffle=None,
+    )
+
+
+@pytest.fixture
+def example_play_history_data(example_track_data):
+    return PlayHistoryModel(
+        track=example_track_data,
+        played_at=datetime.now(),
+        context=None,
     )
