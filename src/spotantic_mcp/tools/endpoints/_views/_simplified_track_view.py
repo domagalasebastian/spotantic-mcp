@@ -4,7 +4,6 @@ from datetime import timedelta
 from typing import Literal
 
 from pydantic import Field
-from pydantic import field_validator
 from spotantic.types import SpotifyItemID
 from spotantic.types import SpotifyTrackURI
 
@@ -27,24 +26,8 @@ class SimplifiedTrackView(BaseView):
     track_name: str = Field(alias="name", description="The name of the track.")
     """The name of the track."""
 
-    item_type: Literal["track"] = Field(alias="type", repr=False, exclude=True, description="The item type.")
+    item_type: Literal["track"] = Field(alias="type", repr=False, description="The item type.")
     """The item type."""
 
     track_uri: SpotifyTrackURI = Field(alias="uri", repr=False, description="The Spotify URI for the track.")
     """The Spotify URI for the track."""
-
-    @field_validator("duration", mode="before")
-    @classmethod
-    def convert_duration_ms_to_timedelta(cls, value: int | timedelta) -> timedelta:
-        """Converts track duration given in milliseconds to `timedelta` object.
-
-        Args:
-            value: Track duration [milliseconds].
-
-        Returns:
-            Track duration as `timedelta` object.
-        """
-        if isinstance(value, timedelta):
-            return value
-
-        return timedelta(milliseconds=value)

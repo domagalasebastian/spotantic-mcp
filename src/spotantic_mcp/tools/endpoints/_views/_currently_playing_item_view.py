@@ -2,7 +2,6 @@ from datetime import datetime
 from datetime import timedelta
 
 from pydantic import Field
-from pydantic import field_validator
 from spotantic.models.spotify.submodels import ContextModel
 from spotantic.models.spotify.submodels import PlaybackActionsModel
 
@@ -41,18 +40,3 @@ class CurrentlyPlayingItemView(BaseView):
         ),
     )
     """Allows to update the user interface based on which playback actions are available within the current context."""
-
-    @field_validator("progress", mode="before")
-    def convert_progress_ms_to_timedelta(cls, value: int | timedelta) -> timedelta:
-        """Converts track/episode progress given in milliseconds to `timedelta` object.
-
-        Args:
-            value: Track/Episode progress [milliseconds].
-
-        Returns:
-            Track/Episode progress as `timedelta` object.
-        """
-        if isinstance(value, timedelta):
-            return value
-
-        return timedelta(milliseconds=value)

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 
 from pydantic import Field
 from spotantic.types import AlbumTypes
@@ -22,5 +22,5 @@ class SimplifiedAlbumView(BaseView):
     album_name: str = Field(alias="name", description="The name of the album.")
     """The name of the album. In case of an album takedown, the value may be an empty string."""
 
-    release_date: datetime = Field(description="The date the album was first released.")
+    release_date: date = Field(description="The date the album was first released.")
     """The date the album was first released."""
