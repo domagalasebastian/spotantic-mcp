@@ -3,6 +3,7 @@ from unittest.mock import MagicMock
 
 import pytest
 from spotantic.models.spotify import AlbumModel
+from spotantic.models.spotify import ArtistModel
 from spotantic.models.spotify import CurrentlyPlayingItemModel
 from spotantic.models.spotify import DeviceModel
 from spotantic.models.spotify import EpisodeModel
@@ -48,6 +49,15 @@ def example_simplified_artist_data():
         name="Example Artist",
         type="artist",
         uri="spotify:artist:250b0Wlc5Vk0CoUsaCY84M",
+    )
+
+
+@pytest.fixture
+def example_artist_data(example_simplified_artist_data):
+    return ArtistModel(
+        **example_simplified_artist_data.model_dump(),
+        genres=[],
+        images=[],
     )
 
 
