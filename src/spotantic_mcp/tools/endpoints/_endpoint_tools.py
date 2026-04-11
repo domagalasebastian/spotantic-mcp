@@ -6,6 +6,7 @@ from .artists import artist_endpoint_tools
 from .episodes import episode_endpoint_tools
 from .library import library_endpoint_tools
 from .player import player_endpoint_tools
+from .search import search_endpoint_tools
 
 endpoint_tools = ToolGroup[EndpointTool](
     name="Spotify Endpoint Tools",
@@ -15,5 +16,6 @@ endpoint_tools = ToolGroup[EndpointTool](
         episode_endpoint_tools,
         library_endpoint_tools,
         player_endpoint_tools,
+        search_endpoint_tools,
     ],
 )

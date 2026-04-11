@@ -8,6 +8,7 @@ from ._play_history_view import PlayHistoryView
 from ._playback_state_view import PlaybackStateView
 from ._saved_album_view import SavedAlbumView
 from ._saved_episode_view import SavedEpisodeView
+from ._search_for_item_response_view import SearchForItemResponseView
 from ._simplified_album_view import SimplifiedAlbumView
 from ._simplified_artist_view import SimplifiedArtistView
 from ._simplified_episode_view import SimplifiedEpisodeView
@@ -26,6 +27,7 @@ __all__ = [
     "PlaybackStateView",
     "SavedAlbumView",
     "SavedEpisodeView",
+    "SearchForItemResponseView",
     "SimplifiedAlbumView",
     "SimplifiedArtistView",
     "SimplifiedEpisodeView",
