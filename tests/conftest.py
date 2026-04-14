@@ -12,6 +12,7 @@ from spotantic.models.spotify import PlaybackStateModel
 from spotantic.models.spotify import PlayHistoryModel
 from spotantic.models.spotify import SavedAlbumModel
 from spotantic.models.spotify import SavedEpisodeModel
+from spotantic.models.spotify import SavedShowModel
 from spotantic.models.spotify import SimplifiedAlbumModel
 from spotantic.models.spotify import SimplifiedArtistModel
 from spotantic.models.spotify import SimplifiedEpisodeModel
@@ -255,4 +256,12 @@ def example_play_history_data(example_track_data):
         track=example_track_data,
         played_at=datetime.now(),
         context=None,
+    )
+
+
+@pytest.fixture
+def example_saved_show_data(example_simplified_show_data):
+    return SavedShowModel(
+        added_at="2024-01-01T00:00:00Z",  # type: ignore
+        show=example_simplified_show_data,
     )
