@@ -1,0 +1,35 @@
+from unittest.mock import AsyncMock
+from unittest.mock import MagicMock
+from unittest.mock import patch
+
+import pytest
+
+from spotantic_mcp.tools.endpoints._views import TrackView
+from spotantic_mcp.tools.endpoints.tracks._get_several_tracks import get_several_tracks_tool
+
+
+@pytest.mark.asyncio
+async def test_get_several_tracks_tool(mock_context, example_track_data):
+    mock_response = MagicMock()
+    mock_response.data = [example_track_data]
+
+    with patch(
+        "spotantic_mcp.tools.endpoints.tracks._get_several_tracks.get_several_tracks",
+        new=AsyncMock(return_value=mock_response),
+    ) as mock_api_call:
+        res = await get_several_tracks_tool(ctx=mock_context, track_ids=[example_track_data.track_id])
+        mock_api_call.assert_awaited_once_with(
+            mock_context.request_context.lifespan_context.client,
+            track_ids=[example_track_data.track_id],
+            market=None,
+        )
+        assert res == [TrackView.model_validate(track) for track in mock_response.data]
+
+
+@pytest.mark.asyncio
+async def test_get_several_tracks_tool_registered(test_server):
+    tools = await test_server.list_tools()
+    matching_tools = [tool for tool in tools if tool.name == "get_several_tracks_tool"]
+    assert len(matching_tools) == 1
+    tool = matching_tools[0]
+    assert tool.outputSchema is not None
