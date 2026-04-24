@@ -10,6 +10,9 @@ from spotantic.models.spotify import EpisodeModel
 from spotantic.models.spotify import PagedResultModel
 from spotantic.models.spotify import PlaybackStateModel
 from spotantic.models.spotify import PlayHistoryModel
+from spotantic.models.spotify import PlaylistModel
+from spotantic.models.spotify import PlaylistSummaryModel
+from spotantic.models.spotify import PlaylistTrackModel
 from spotantic.models.spotify import SavedAlbumModel
 from spotantic.models.spotify import SavedEpisodeModel
 from spotantic.models.spotify import SavedShowModel
@@ -17,11 +20,13 @@ from spotantic.models.spotify import SavedTrackModel
 from spotantic.models.spotify import SimplifiedAlbumModel
 from spotantic.models.spotify import SimplifiedArtistModel
 from spotantic.models.spotify import SimplifiedEpisodeModel
+from spotantic.models.spotify import SimplifiedPlaylistModel
 from spotantic.models.spotify import SimplifiedShowModel
 from spotantic.models.spotify import SimplifiedTrackModel
 from spotantic.models.spotify import TrackModel
 from spotantic.models.spotify.submodels import ExternalUrlsModel
 from spotantic.models.spotify.submodels import PlaybackActionsModel
+from spotantic.models.spotify.submodels import PlaylistOwnerModel
 from spotantic.types import AlbumTypes
 
 from spotantic_mcp.server import create_server
@@ -273,4 +278,82 @@ def example_saved_track_data(example_track_data):
     return SavedTrackModel(
         added_at="2024-01-01T00:00:00Z",  # type: ignore
         track=example_track_data,
+    )
+
+
+@pytest.fixture
+def example_playlist_owner_data():
+    return PlaylistOwnerModel(
+        external_urls=ExternalUrlsModel(),
+        href="https://api.spotify.com/v1/users/44fyLyzKjE7ZAgy2t82CtD",  # type: ignore
+        id="44fyLyzKjE7ZAgy2t82CtD",
+        type="user",
+        uri="spotify:user:44fyLyzKjE7ZAgy2t82CtD",
+        display_name="user name",
+    )
+
+
+@pytest.fixture
+def example_playlist_data(example_playlist_owner_data, example_track_data):
+    return PlaylistModel(
+        collaborative=True,
+        description="example description",
+        external_urls=ExternalUrlsModel(),
+        href="https://api.spotify.com/v1/playlists/44fyLyzKjE7ZAgy2t82CtD",  # type: ignore
+        id="44fyLyzKjE7ZAgy2t82CtD",
+        images=None,
+        name="example name",
+        owner=example_playlist_owner_data,
+        public=True,
+        snapshot_id="snapshotID",
+        type="playlist",
+        uri="spotify:playlist:44fyLyzKjE7ZAgy2t82CtD",
+        items=PagedResultModel(
+            items=[
+                PlaylistTrackModel(
+                    added_at="2024-01-01T00:00:00Z",  # type: ignore
+                    added_by=example_playlist_owner_data,
+                    is_local=False,
+                    item=example_track_data,
+                )
+            ],
+            total=1,
+            limit=1,
+            offset=0,
+            href="https://api.spotify.com/v1/playlist/4LOrSSPct7B6yCzW1IltRd/tracks",  # type: ignore
+            next=None,
+            previous=None,
+        ),
+    )
+
+
+@pytest.fixture
+def example_simplified_playlist_data(example_playlist_owner_data):
+    return SimplifiedPlaylistModel(
+        collaborative=True,
+        description="example description",
+        external_urls=ExternalUrlsModel(),
+        href="https://api.spotify.com/v1/playlists/44fyLyzKjE7ZAgy2t82CtD",  # type: ignore
+        id="44fyLyzKjE7ZAgy2t82CtD",
+        images=None,
+        name="example name",
+        owner=example_playlist_owner_data,
+        public=True,
+        snapshot_id="snapshotID",
+        type="playlist",
+        uri="spotify:playlist:44fyLyzKjE7ZAgy2t82CtD",
+        tracks=PlaylistSummaryModel(
+            href="https://api.spotify.com/v1/tracks/44fyLyzKjE7ZAgy2t82CtD",  # type: ignore
+            total=1,
+        ),
+    )
+
+
+@pytest.fixture
+def example_playlist_track_data(example_playlist_owner_data, example_track_data):
+    return PlaylistTrackModel(
+        added_at="2024-01-01T00:00:00Z",  # type: ignore
+        added_by=example_playlist_owner_data,
+        is_local=False,
+        item=example_track_data,
     )
