@@ -19,16 +19,16 @@ classifiers = [
 ]
 dependencies = [
     "mcp[cli]>=1.26.0",
-    "spotantic>=0.1.2",
+    "spotantic>=0.1.3",
 ]
 
 [dependency-groups]
 dev = [
     "pre-commit>=4.5.1",
-    "pyright>=1.1.406",
+    "pyright>=1.1.408",
     "pytest>=9.0.3",
     "pytest-asyncio>=1.3.0",
-    "ruff>=0.14.0",
+    "ruff>=0.15.12",
 ]
 
 [project.scripts]
