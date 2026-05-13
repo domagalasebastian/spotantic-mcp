@@ -19,6 +19,7 @@ async def test_search_for_item_tool(
     example_simplified_album_data,
     example_simplified_show_data,
     example_simplified_episode_data,
+    example_simplified_playlist_data,
 ):
     tracks_result = PagedResultModel(
         href="https://api.spotify.com/v1/browse",  # type: ignore
@@ -60,7 +61,14 @@ async def test_search_for_item_tool(
         offset=0,
         items=[example_simplified_episode_data],
     )
-    playlists_result = None
+    playlists_result = PagedResultModel(
+        href="https://api.spotify.com/v1/browse",  # type: ignore
+        limit=1,
+        next=None,
+        total=1,
+        offset=0,
+        items=[example_simplified_playlist_data],
+    )
 
     mock_response = MagicMock()
     mock_response.data = SearchForItemResponse(
