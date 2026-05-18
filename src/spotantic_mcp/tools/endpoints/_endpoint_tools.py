@@ -10,6 +10,7 @@ from .playlists import playlists_endpoint_tools
 from .search import search_endpoint_tools
 from .shows import show_endpoint_tools
 from .tracks import track_endpoint_tools
+from .users import user_endpoint_tools
 
 endpoint_tools = ToolGroup[EndpointTool](
     name="Spotify Endpoint Tools",
@@ -23,5 +24,6 @@ endpoint_tools = ToolGroup[EndpointTool](
         search_endpoint_tools,
         show_endpoint_tools,
         track_endpoint_tools,
+        user_endpoint_tools,
     ],
 )

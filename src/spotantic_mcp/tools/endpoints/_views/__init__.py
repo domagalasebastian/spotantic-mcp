@@ -21,6 +21,7 @@ from ._simplified_playlist_view import SimplifiedPlaylistView
 from ._simplified_show_view import SimplifiedShowView
 from ._simplified_track_view import SimplifiedTrackView
 from ._track_view import TrackView
+from ._user_view import UserView
 
 __all__ = [
     "CurrentlyPlayingItemView",
@@ -46,4 +47,5 @@ __all__ = [
     "SimplifiedShowView",
     "SimplifiedTrackView",
     "TrackView",
+    "UserView",
 ]

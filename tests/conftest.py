@@ -5,6 +5,7 @@ import pytest
 from spotantic.models.spotify import AlbumModel
 from spotantic.models.spotify import ArtistModel
 from spotantic.models.spotify import CurrentlyPlayingItemModel
+from spotantic.models.spotify import CurrentUserModel
 from spotantic.models.spotify import DeviceModel
 from spotantic.models.spotify import EpisodeModel
 from spotantic.models.spotify import PagedResultModel
@@ -356,4 +357,12 @@ def example_playlist_track_data(example_playlist_owner_data, example_track_data)
         added_by=example_playlist_owner_data,
         is_local=False,
         item=example_track_data,
+    )
+
+
+@pytest.fixture
+def example_user_data(example_playlist_owner_data):
+    return CurrentUserModel(
+        **example_playlist_owner_data.model_dump(),
+        images=[],
     )
