@@ -17,3 +17,5 @@ EndpointTool: TypeAlias = Callable[
     Concatenate[Context[ServerSession, AppContext], P],
     Awaitable[R],
 ]
+
+UtilityTool: TypeAlias = EndpointTool[P, R]
