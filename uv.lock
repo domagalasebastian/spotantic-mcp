@@ -911,16 +911,16 @@ wheels = [
 
 [[package]]
 name = "pydantic-settings"
-version = "2.14.2"
+version = "2.15.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pydantic" },
     { name = "python-dotenv" },
     { name = "typing-inspection" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5c/b5/8f48e906c3e0205276e8bd8cb7512217a87b2685304d64be27cad5b3019f/pydantic_settings-2.14.2.tar.gz", hash = "sha256:c19dd64b19097f1de80184f0cc7b0272a13ae6e170cbf240a3e27e381ed14a5f", size = 237700, upload-time = "2026-06-19T13:44:56.324Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/68/ca/31c57507b13119d7d3cfa1576dad2911a4861e3be07b579395f4e9d393f9/pydantic_settings-2.15.0.tar.gz", hash = "sha256:694b793e84f766ba76a90ebdefc01d0a9a045dab0382bee70393da93712ad117", size = 261253, upload-time = "2026-08-07T09:24:57.419Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/77/c1/6e422f34e569cf8e18df68d1939c81c099d2b61e4f7d9621c8a77560799c/pydantic_settings-2.14.2-py3-none-any.whl", hash = "sha256:a20c97b37910b6550d5ea50fbcc2d4187defe58cd57070b73863d069419c9440", size = 61715, upload-time = "2026-06-19T13:44:55.02Z" },
+    { url = "https://files.pythonhosted.org/packages/30/a4/2bffa9f8e804325a09867f0e9d30795c80ea9f8d62560bd1b6ad6220eb2f/pydantic_settings-2.15.0-py3-none-any.whl", hash = "sha256:0ba092c291c94baceb5eff768aa0d56400a457585bc0175925a5a5510303da42", size = 69413, upload-time = "2026-08-07T09:24:55.839Z" },
 ]
 
 [[package]]
@@ -1225,16 +1225,16 @@ wheels = [
 
 [[package]]
 name = "spotantic"
-version = "0.1.4"
+version = "0.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c2/da/d489f3d1ae3e5bf1c4328df83493b6ba3443638860b0430cf7a1b3f7222f/spotantic-0.1.4.tar.gz", hash = "sha256:d12a67fb10e6d9f97cde27ef489186f11ad2a9969f5c766eff84f7f01c5ca233", size = 63684, upload-time = "2026-06-27T12:36:32.168Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1d/6a/5dcec976b8cd98f3ae178029c578431b927c78ef4a9b008cf510f6e74a52/spotantic-0.2.0.tar.gz", hash = "sha256:2e9471be2c7e349347ddad29e7b09bf2b3b23c217dd295cce1d85e68cefd052a", size = 63999, upload-time = "2026-09-13T18:49:55.618Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/97/13/e2087cb2eb81ca265fb1201fb38da6031e6db610c414da0662e2f5826062/spotantic-0.1.4-py3-none-any.whl", hash = "sha256:122bdfaf0f5203e172b17f91cd08de262445e3a4c877d8a74cc0d7f59306854f", size = 222659, upload-time = "2026-06-27T12:36:30.813Z" },
+    { url = "https://files.pythonhosted.org/packages/3b/40/b2cc07c28f166307570900fa00905e7c71018f1bb27da23a456ebe128241/spotantic-0.2.0-py3-none-any.whl", hash = "sha256:bdf15c4a960f1c43fb033f229516c87d0cf41820557ea72d28e306113672819d", size = 223176, upload-time = "2026-09-13T18:49:54.542Z" },
 ]
 
 [[package]]
